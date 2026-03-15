@@ -1,0 +1,19 @@
+{% extends 'customerbase.html' %}
+{% block content %}
+<div style="margin: 50px 100px;" class="text-center">
+    <form method="POST"  >
+        {% csrf_token %}
+        <div class="">
+          <img src="../static/images/search hotel.png" height="70px" width="70px" style="opacity: 0.25; margin-top:-70px">
+          <h3 style="margin:-30px 20px 20px 70px;">Feedback </h3>
+        </div>
+        <textarea name="feedback" class="form-control"  id="" cols="30" rows="5"></textarea>
+        <input type="submit" class="btn btn-dark mt-2" style="margin:auto" name="near" value="Submit">
+        <!-- <div style="margin: 30px; padding: 30px; border-color: darkcyan; border-style: solid; border-radius: 10px;">
+            <input type="text" placeholder="Enter dish" name="dish" class="form-control"><br>
+            <input type="submit" class="btn btn-dark" name="search" value="Search dish">
+        </div> -->
+        </form>
+
+        </div>
+{% endblock %}

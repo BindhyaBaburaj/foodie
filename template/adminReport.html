@@ -1,0 +1,79 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<style type="text/css">
+	#log{
+		background-color: rgba(0, 150, 220, 0.5);
+		margin: 10px 150px;
+		padding: 50px;
+		color: white;
+		width: 1000px;
+		float: left;
+	}
+	td,th{
+		padding: 10px;
+	}
+	#tbl{
+		width: 900px;
+	}
+	a{
+		color: #ebd231;
+	}
+	    table {
+  border-collapse: collapse;
+  border: none;
+}
+
+th{
+    background-color: rgba(0, 100, 180, 0.7);
+    color: #ebd231;
+}
+/*tr:nth-child(odd) {background-color: silver;}*/
+</style>
+<div style="margin: 100px;">
+    <form method="POST">
+        {% csrf_token %}
+        <div class=" text-center" style="width: 40%;margin:auto">
+            <h3 style="margin-bottom: 20px;text-align:center">Reports</h3>
+            <input type="date" name="sDate" class="btn btn-info" id="">
+            <input type="date" name="eDate" class="btn btn-info" id="">
+            <input type="submit" value="Search" class="btn btn-dark">
+        </div>
+    </form>
+        <div class="mt-5"></div>
+        <table border="0" style="margin:auto;"> 
+      
+            <tr>
+                <th>DATE</th>
+                <th>RESTAURANT</th>
+                <th>CONTACT</th>
+                <th>CUSTOMER</th>
+                <th>CONTACT</th>              
+                <th>Order</th>              
+                <th>ITEMS</th>              
+            </tr>
+            {% for d in data %}
+            <tr>
+                
+                <td>{{d.booking.date}}</td>
+                <td>{{d.booking.restaurants.name}}</td>
+                <td>{{d.booking.restaurants.phone}}</td>
+                <td>{{d.booking.customer.name}}</td>
+                <td>{{d.booking.customer.phone}}</td>
+                <td>
+                    {% if d.table %}
+                       Dine-in Slot: {{d.table.name}}
+                    {% else %}
+                         <textarea style="border: none;" readonly>Home Deliver address: {{d.orderaddress}}</textarea>
+                    {% endif %}
+                </td>
+                <td><a href="/adminViewBookingItems?bid={{d.booking.id}}">Items</a></td>
+
+               
+            </tr>
+            {% endfor %}
+            <tr>
+				<th colspan="7" class="text-center"><button onclick="window.print()" class="btn btn-dark">Print</button></th>
+			</tr>
+        </table>
+        </div>
+{% endblock %}

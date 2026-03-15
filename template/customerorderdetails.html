@@ -1,0 +1,74 @@
+{% extends 'customerbase.html' %}
+{% block content %}
+<style type="text/css">
+	#log{
+		background-color: rgba(0, 150, 220, 0.5);
+		margin: 10px 150px;
+		padding: 50px;
+		color: white;
+		width: 1000px;
+		float: left;
+	}
+	td,th{
+		padding: 10px;
+	}
+	#tbl{
+		width: 900px;
+	}
+	a{
+		color: #ebd231;
+	}
+	    table {
+  border-collapse: collapse;
+  border: none;
+}
+
+th{
+    background-color: rgba(0, 100, 180, 0.7);
+    color: #ebd231;
+}
+/*tr:nth-child(odd) {background-color: silver;}*/
+</style>
+<div style="margin: 100px;">
+    <form method="POST">
+        {% csrf_token %}
+        <h3 style="margin: 20px;">ORDER DETAILS</h3>
+        {% if data %}
+        <table border="0" style="margin:auto;width:80%"> 
+            <tr>
+                <th>IMAGE</th>
+                <th>ITEM</th>
+                <th>QUANTITY</th>
+                <th>RATE</th>
+            </tr>
+            {% for d in data %}
+            <tr>
+                <td><img src="../static/media/{{d.cuisine.img}}" height="150px" width="150px"></td>
+                <td>{{d.cuisine.name}}</td>
+                <td>{{d.quantity}}</td>
+                <td>{{d.amount}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div style="margin-left:400px ;">
+            <h3>Total : Rs.{{total}}</h3>
+            {% if bok.custcoupons %}
+            <h3>Applied Couppon : {{bok.custcoupons.coupons.name}} {{bok.custcoupons.coupons.discount}}%</h3>
+            <h3>Amount after discount : Rs.{{bok.amount}}</h3>
+            {% endif %}
+        </div>
+        <div style="margin: 20px;">
+            {% if table == "Home Delivery" %}
+            <h4 class="text-center mb-5 text-success">Order type: {{table}}</h4>
+            {% else %}
+            <h4 class="text-center mb-5 text-success">You have booked for table slot :{{table}}</h4>
+            {% endif %}
+            <a href="/customeraddreview?id={{bkid}}"><h2 class="text-primary text-center">Add Feedback</h2></a>
+        </div>
+        
+        {% else %}
+        <h4>No order</h4>
+        {% endif %}
+        </form>
+        </div>
+{% endblock %}

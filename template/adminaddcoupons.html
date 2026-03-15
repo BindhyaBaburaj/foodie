@@ -1,0 +1,40 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<style>
+    td,th{
+        padding: 10px;
+    }
+</style>
+<div style="text-align:center">
+    <form method="POST">
+        {% csrf_token %}
+        <h3 style="margin: 20px;">Add Coupons</h3>
+        <table style="margin:auto">
+           
+            <tr>
+                <td>Name</td>
+                <td><input type="text" class="form-control" name="name"  required /></td>
+            </tr>
+            <tr>
+                <td>Score Required <br> (<em>In  %</em>)</td>
+                <td><input type="number" class="form-control" name="score" min="1" max="100" required /></td>
+            </tr>
+            <tr>
+                <td>Discount Amount <br> (<em>In  %</em>)</td>
+                <td><input type="number" class="form-control" name="discount" min="1" max="100" required /></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><input type="submit" class="btn btn-primary" name="btnSubmit" value="Submit" required /></td>
+            </tr>
+        </table>
+    
+    </form>
+</div>
+<script>
+    var msg="{{msg}}";
+    if(msg!="")
+        alert(msg);
+    
+               
+</script>
+{% endblock %}

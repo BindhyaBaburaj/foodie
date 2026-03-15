@@ -1,0 +1,68 @@
+{% extends 'customerbase.html' %}
+{% block content %}
+<style>
+    td,th{
+        padding: 10px;
+    }
+</style>
+<div style="text-align:center">
+    <form method="POST">
+        {% csrf_token %}
+        <h3 style="margin: 20px;">Profile</h3>
+        <table style="margin:auto">
+           
+            <tr>
+                <td>Name</td>
+                <td><input type="text" class="form-control" name="txtName" pattern="[a-zA-Z ]+" value="{{data.name}}" required /></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><textarea class="form-control" name="txtAddress" required >{{data.address}}</textarea></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" class="form-control" name="txtContact" pattern="[6789][0-9]{9}" value="{{data.phone}}" maxlength="10" required /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" class="form-control" name="txtEmail" value="{{data.email}}" required /></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" class="form-control" name="txtPwd" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required /></td>
+            </tr>
+            <tr>
+                <td>Your favourite dishes</td>
+                <td><select name="favdishes" id="" class="form-control" multiple>
+                    <option value="" selected disabled>Dishes</option>
+                    {%for d in dishes%}
+                        <option value="{{d}}">{{d}}</option>
+                    {%endfor%}
+                </select></td>
+            </tr>
+            <tr>
+                <td> 
+                    <!-- {% if data.type == 'Customer' %}
+                        <a href="/custPurPre?id={{data.id}}" class="btn btn-info">Purchase Premium</a>
+                    {% else %}
+                    <strong>
+
+                        Customer Type: <br>
+                        Premium Customer
+                    </strong>
+                    {% endif %} -->
+                </td>
+                <td><input type="submit" class="btn btn-primary" name="btnSubmit" value="Update" required /></td>
+            </tr>
+        </table>
+    
+    </form>
+</div>
+<script>
+    var msg="{{msg}}";
+    if(msg!="")
+        alert(msg);
+    
+               
+</script>
+{% endblock %}

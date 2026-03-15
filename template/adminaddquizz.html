@@ -1,0 +1,48 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<style>
+    td,th{
+        padding: 10px;
+    }
+</style>
+<div style="text-align:center">
+    <form method="POST">
+        {% csrf_token %}
+        <h3 style="margin: 20px;">Add Quizz Questions</h3>
+        <table style="margin:auto">
+           
+            <tr>
+                <td>Question</td>
+                <td><textarea class="form-control" name="questions"  required ></textarea></td>
+            </tr>
+            <tr>
+                <td>Option 1</td>
+                <td><textarea class="form-control" name="o1" required ></textarea></td>
+            </tr>
+            <tr>
+                <td>Option 2</td>
+                <td><textarea class="form-control" name="o2" required ></textarea></td>
+            </tr>
+            <tr>
+                <td>Option 3</td>
+                <td><textarea class="form-control" name="o3" required ></textarea></td>
+            </tr>
+            <tr>
+                <td>Answer</td>
+                <td><textarea class="form-control" name="ans" required ></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><input type="submit" class="btn btn-primary" name="btnSubmit" value="Submit" required /></td>
+            </tr>
+        </table>
+    
+    </form>
+</div>
+<script>
+    var msg="{{msg}}";
+    if(msg!="")
+        alert(msg);
+    
+               
+</script>
+{% endblock %}

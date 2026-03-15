@@ -1,0 +1,49 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<style>
+    td,th{
+        padding: 10px;
+    }
+</style>
+<div style="text-align:center">
+    <form method="POST">
+        {% csrf_token %}
+        <h3 style="margin: 20px;">Customer Registration</h3>
+        <table style="margin:auto">
+           
+            <tr>
+                <td>Name</td>
+                <td><input type="text" class="form-control" name="txtName" pattern="[a-zA-Z ]+" required /></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><textarea class="form-control" name="txtAddress" required ></textarea></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" class="form-control" name="txtContact" pattern="[6789][0-9]{9}" maxlength="10" required /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" class="form-control" name="txtEmail" required /></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" class="form-control" name="txtPwd" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn btn-primary" name="btnSubmit" value="Register" required /></td>
+            </tr>
+        </table>
+    
+    </form>
+</div>
+<script>
+    var msg="{{msg}}";
+    if(msg!="")
+        alert(msg);
+    
+               
+</script>
+{% endblock %}

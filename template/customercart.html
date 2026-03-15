@@ -1,0 +1,101 @@
+{% extends 'customerbase.html' %}
+{% block content %}
+<style type="text/css">
+	#log{
+		background-color: rgba(0, 150, 220, 0.5);
+		margin: 10px 150px;
+		padding: 50px;
+		color: white;
+		width: 1000px;
+		float: left;
+	}
+	td,th{
+		padding: 10px;
+	}
+	#tbl{
+		width: 900px;
+	}
+	a{
+		color: #ebd231;
+	}
+	    table {
+  border-collapse: collapse;
+  border: none;
+}
+
+th{
+    background-color: rgba(0, 100, 180, 0.7);
+    color: #ebd231;
+}
+/*tr:nth-child(odd) {background-color: silver;}*/
+</style>
+<div style="margin: 100px;">
+    <form method="POST">
+        {% csrf_token %}
+        <h3 style="margin: 20px;">CART</h3>
+        {% if data %}
+        <table border="0" style="margin:auto;width:80%;text-align:center"> 
+            <tr>
+                <th>IMAGE</th>
+                <th>ITEM</th>
+                <th>QUANTITY</th>
+                <th>RATE</th>
+                <th></th>
+            </tr>
+            {% for d in data %}
+            <tr>
+                <td><img src="../static/media/{{d.cuisine.img}}" height="150px" width="150px"></td>
+                <td>{{d.cuisine.name}}</td>
+                <td>{{d.quantity}}</td>
+                <td>{{d.amount}}</td>
+                <input type="hidden" name="bokid" value="{{d.booking.id}}">
+                <td><a href="/custRemoveFroCart?id={{d.id}}">❌</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div style="margin:50px 0;text-align:center">
+            <h3>Total : Rs.{{total}}</h3>
+        </div>
+       
+        <div style="border-radius: 5px; border-color: cornflowerblue; margin:50px; border-style: solid; padding: 50px;width:500px;margin:auto;">
+            <div class="d-flex mb-3" style="width: 100%; justify-content: space-between;">
+                {%if flag != 1%}
+                <div class="form-check">
+                    <!-- <input class="form-check-input" type="radio" name="type" value="dinein" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Dine-in
+                    </label> -->
+                    <input class="form-check-input" type="radio" name="type" value="COD" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        COD
+                    </label>
+                </div>
+                {%endif%}
+                <div class="form-check">
+                    <!-- <input class="form-check-input" type="radio" name="type" value="order" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Home Delivery
+                    </label> -->
+                    <input class="form-check-input" type="radio" name="type" value="online" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Online payment
+                    </label>
+                </div>
+            </div>
+            <div class="d-flex mb-3" style="width: 100%; justify-content: center;">
+                    <select class="form-control" style="width: 100%;" name="coupon">
+                        <option value="0" selected>Apply Coupons</option>
+                        {% for c in cc %}
+                            <option value="{{c.id}}">{{c.coupons.name}} Discout: {{c.coupons.discount}}%</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <br>
+            <input type="submit" style="width: 400px;" class="btn btn-dark" value="Proceed to Checkout">
+        </div>
+        {% else %}
+        <h4>No items in cart</h4>
+        {% endif %}
+        </form>
+        </div>
+{% endblock %}

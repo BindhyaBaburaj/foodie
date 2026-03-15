@@ -1,0 +1,74 @@
+{% extends 'customerbase.html' %} {% block content %}
+<div style="margin: 50px 100px">
+	<div class="row">
+		<form class="col-6" method="POST">
+			{% csrf_token %}
+			<img
+				src="../static/images/im-hungry-starving.gif"
+				style="border-radius: 50%"
+				height="70px"
+				width="70px"
+			/>
+			<h3 style="margin: -50px 20px 20px 70px">Search your restaurants</h3>
+			<input type="text" id="lat" name="lat" hidden />
+			<input type="text" id="lon" name="lon" hidden />
+			<input
+				type="submit"
+				class="btn btn-dark"
+				name="near"
+				value="Nearest restaurants"
+			/>
+			<!-- <div style="margin: 30px; padding: 30px; border-color: darkcyan; border-style: solid; border-radius: 10px;">
+      <input type="text" placeholder="Enter dish" name="dish" class="form-control"><br>
+      <input type="submit" class="btn btn-dark" name="search" value="Search dish">
+        </div> -->
+		</form>
+	</div>
+	{% if d %} {% for i in d %}
+	<div
+		style="
+			margin: 50px 300px;
+			padding: 20px;
+			color: white;
+			background-color: lightseagreen;
+			border-radius: 10px;
+			width: 500px;
+			text-align: center;
+		"
+	>
+		<h3 style="color: white">{{i.name}}</h3>
+		{{i.phone}}
+		<br />
+		{{i.address}}<br />
+		{{i.pin}}<br />
+		{{i.email}}<br />
+		<a style="color: yellow" href="customerviewdish?id={{i.id}}">View Dishes</a><br>
+		<!-- <a style="color: yellow" href="customerviewparking?id={{i.id}}">View Parking Slots</a><br> -->
+		{% if request.session.type == 'Premium Customer' %}
+			<a href="/custChat?id={{i.id}}&url=customersearch" class="btn btn-warning">Chat</a>
+		{% endif %}
+	</div>
+	{% endfor %} {% endif %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function () {
+		var x = document.getElementById('demo');
+
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		} else {
+			// x.innerHTML = "Geolocation is not supported by this browser.";
+		}
+
+		function showPosition(position) {
+			document.getElementById('lat').value = position.coords.latitude;
+			document.getElementById('lon').value = position.coords.longitude;
+		}
+	});
+</script>
+<script>
+	var msg = '{{msg}}';
+	if (msg != '') alert(msg);
+</script>
+{% endblock %}

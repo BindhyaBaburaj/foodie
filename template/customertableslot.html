@@ -1,0 +1,50 @@
+{% extends 'customerbase.html' %} {% block content %}
+<style>
+	td {
+		padding: 10px;
+	}
+</style>
+<div style="margin: 20px 70px 100px 70px">
+	<form method="POST">
+		{% csrf_token %}
+		<img src="../static/images/tables.jpg" height="200px" width="250px" />
+		<h3 style="margin: -100px 20px 20px 200px">Select Your Table</h3>
+		{% if data %}
+		<div class="w3-services-grids py-lg-4 text-center" style="padding: 20px;">
+			<div class="fea-gd-vv row">
+				{% for d in data %}
+
+				<div class="col-lg-4 col-md-7" style="margin-bottom: 30px">
+					<div class="feature-gd icon-yellow">
+						<div class="icon">
+							<i><img src="/static/images/table.png" style="
+									height: 200px;
+									width: 200px;
+								" /></i>
+						</div>
+						<div class="info" style="margin-top: 10px">
+							<h3>{{d.name}}</h3>
+							<p>Description: {{d.desc}}</p>
+							<ul>
+								<li class="cary-li-w3-agileits">
+									<div class="snipcart-details top_brand_home_details">
+										<form action="#" method="post">
+											<fieldset>
+												<a href="/payment?id={{d.id}}&bkid={{bkid}}"><input type="button"
+														name="submit" value="Select Slot" class="btn btn-primary" /></a>
+											</fieldset>
+										</form>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+			</div>
+		</div>
+		{% endif %}
+	</form>
+</div>
+{% endblock %}
